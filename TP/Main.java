@@ -27,7 +27,7 @@ public class Main {
             int quantiteArticle=0;
             double prixUnitaire=0;
              do{
-                 System.out.println("Quelle quantité de(') "+nomArticle+"avez-vous?");
+                 System.out.println("Quelle quantité de(') "+nomArticle+" avez-vous acheté?");
                  quantiteArticle = sc.nextInt();
                  sc.nextLine();
                  System.out.println("Quel est le prix d'un "+nomArticle+"?");
@@ -44,9 +44,42 @@ public class Main {
              facture.ajouterUnArticle(infoArticle);
 
         }
-        System.out.print(facture.afficherArticles());
 
+        //Affichage de la facture.
+        System.out.println(
+                "\n|=============================================|\n" +
+                        "|==========         FACTURE         ==========|\n" +
+                        "|=============================================|\n" +
+                        "\n|=============================================|\n" +
+                        "|==========   INFORMATIONS CLIENT   ==========|\n" +
+                        "|=============================================|\n"
+        );
+        System.out.printf("| Nom du client : %-20s \n", infoClient.getNom());
+        System.out.printf("| Numero de telephone : %-15s \n", infoClient.getTelephone());
+        System.out.println("|=============================================|");
+        System.out.println(
+                "\n|=============================================|\n" +
+                        "|==========   INFORMATIONS ARTICLES  =========|\n" +
+                        "|=============================================|\n"
+        );
+        System.out.printf("| %-14s | %-10s | %-10s |\n", "Article", "Quantité", "Prix Unitaire");
+        System.out.println("|=============================================|");
+        for(article a : facture.getArticles()){
+            System.out.printf("| %-14s | %-10d | %-10.2f |\n", a.getNom(), a.getQuantite(), a.getPrixUnitaire());
+        }
+        System.out.println("|=============================================|");
+        double prixHT = facture.getprixHT();
+        double tva = facture.getTva(prixHT);
+        double prixTTC = facture.getPrixTTC(prixHT);
+        double remise= facture.getRemise(prixHT);
+        double netAPayer = facture.getNetAPayer(prixTTC,remise);
+
+        System.out.printf("\n| %-30s : %.2f |\n", "Total HT", prixHT);
+        System.out.printf("| %-30s : %.2f |\n", "TVA (16%)", tva);
+        System.out.printf("| %-30s : %.2f |\n", "Prix TTC", prixTTC);
+        System.out.printf("| %-30s : %.2f |\n", "Rémise", remise);
+        System.out.printf("| %-30s : %.2f |\n", "Net à Payer", netAPayer);
+        System.out.println("\n|=============================================|");
     }
-
 
 }
