@@ -62,10 +62,11 @@ public class Main {
                         "|==========   INFORMATIONS ARTICLES  =========|\n" +
                         "|=============================================|\n"
         );
-        System.out.printf("| %-14s | %-10s | %-10s |\n", "Article", "Quantité", "Prix Unitaire");
+        System.out.printf("| %-8s | %-8s | %-8s | %5s |\n", "Article", "Quantité", "Prix Uni","Prix Total");
         System.out.println("|=============================================|");
         for(article a : facture.getArticles()){
-            System.out.printf("| %-14s | %-10d | %-10.2f |\n", a.getNom(), a.getQuantite(), a.getPrixUnitaire());
+            double prixTotal=a.getPrixUnitaire()*a.getQuantite();
+            System.out.printf("| %-8s | %-8d | %-8.2f | %-10.2f | \n", a.getNom(), a.getQuantite(), a.getPrixUnitaire(),prixTotal);
         }
         System.out.println("|=============================================|");
         double prixHT = facture.getprixHT();
@@ -74,11 +75,11 @@ public class Main {
         double remise= facture.getRemise(prixHT);
         double netAPayer = facture.getNetAPayer(prixTTC,remise);
 
-        System.out.printf("\n| %-30s : %.2f |\n", "Total HT", prixHT);
-        System.out.printf("| %-30s : %.2f |\n", "TVA (16%)", tva);
-        System.out.printf("| %-30s : %.2f |\n", "Prix TTC", prixTTC);
-        System.out.printf("| %-30s : %.2f |\n", "Rémise", remise);
-        System.out.printf("| %-30s : %.2f |\n", "Net à Payer", netAPayer);
+        System.out.printf("\n| %-30s : %-10.2f |\n", "Total HT", prixHT);
+        System.out.printf("| %-30s : %-10.2f |\n", "TVA (16%)", tva);
+        System.out.printf("| %-30s : %-10.2f |\n", "Prix TTC", prixTTC);
+        System.out.printf("| %-30s : %-10.2f |\n", "Rémise", remise);
+        System.out.printf("| %-30s : %-10.2f |\n", "Net à Payer", netAPayer);
         System.out.println("\n|=============================================|");
     }
 
